@@ -1,0 +1,15 @@
+export const scenario = {
+  _id:'case-the-slow-lane',_type:'investigation',title:'Why are these parcels waiting?',location:'Case 01 · A parcel warehouse',
+  brief:'Imagine two workers at separate packing tables, A and B. Each collects an item from a shelf, puts it in a box, then prints and sticks on a delivery label. The label shows the address and a barcode. Only then can the parcel leave. Yesterday, table B started sending out fewer parcels. Your job is to find which step is slowing it down.',
+  initial:['A new computer instruction tells both workers which shelves to visit first. It started yesterday.','Table A is still working at its usual speed. Table B is slower, but its parcels are packed correctly.','The manager suspects the new shelf instructions. That is a suggestion to investigate, not an established cause.'],
+  tests:[
+    {id:'timing',title:'Watch one parcel at each table',cost:2,question:'Time collecting, boxing and printing. Which step takes longer at B?',result:'Collecting and boxing take the same time at both tables. Printing a delivery label takes 2 seconds at A and 18 seconds at B. B’s worker waits for the printer.'},
+    {id:'routes',title:'Follow the workers to the shelves',cost:2,question:'Are the new shelf instructions making B’s worker walk farther?',result:'Walking distances are much the same as before at both tables. The extra waiting happens back at table B, after the item is boxed, while its label prints.'},
+    {id:'changes',title:'Ask what equipment changed',cost:1,question:'Was anything repaired or replaced before the slowdown?',result:'Table B’s broken label printer was replaced that morning. The new printer arrived with its own saved print settings.'},
+    {id:'profile',title:'Look at both printers’ settings',cost:1,question:'Are they using the same print mode?',result:'A uses normal label mode. B uses detailed picture mode, which prints more slowly. Both produce labels that look suitable for these parcels.'},
+    {id:'trial',title:'Try normal label mode at B',cost:2,question:'Keep the same printer and label. Change only the print mode. Does the time change?',result:'On B, the same label takes 18 seconds in detailed picture mode and 2 seconds in normal label mode. Both labels pass the barcode scan.'},
+    {id:'staff',title:'Compare the work at both tables',cost:1,question:'Does B have fewer workers or harder parcels to pack?',result:'Both tables have comparable staffing, orders and packing difficulty. Different workers experience the same delay at B.'}
+  ],
+  hypotheses:[{id:'routing',label:'The new shelf instructions make collecting items take longer'},{id:'printer',label:'B’s printer settings make each delivery label take longer'},{id:'staffing',label:'B has more packing work than its workers can handle'}],
+  answer:'printer',explanation:'The new shelf instructions were a coincidence. B’s replacement printer was set to a slower print mode. Trying the same label on the same printer, changing only that setting, showed that normal label mode removed the delay without making the barcode unreadable.',
+};
