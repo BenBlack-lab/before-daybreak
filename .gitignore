@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.env*
+!.env.example
+.sanity/
+*.log
+dist/
+.open-next/
+.wrangler/
+.sites-runtime/
+AGENTS.md
+CLAUDE.md
